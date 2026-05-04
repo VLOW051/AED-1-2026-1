@@ -10,7 +10,7 @@
 #define POSITION_CONTADOR_LOOP sizeof(int)      
 #define POSITION_QTD_PESSOAS (sizeof(int) * 2)
 
-// METADADOS
+// JUMP OFFSETS 7
 #define METADADOS_SIZE (sizeof(int) * 3) 
 
 // REGISTROS 
@@ -42,7 +42,7 @@ int main () {
         printf("3 - Listar\n");
         printf("4 - Buscar\n");
         printf("5 - Sair\n");
-        printf("Escolha: ");
+        printf("... : ");
 
       
         scanf("%d", (int *)(pBuffer + POSITION_OPCAO_MENU));
@@ -96,8 +96,8 @@ void list_Agenda(void *pBuffer) {
         int desloc = METADADOS_SIZE + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE);
 
         printf("\nContato %d:\n", *(int *)(pBuffer + POSITION_CONTADOR_LOOP) + 1);
-        printf("Nome : %s\n", (char *)(pBuffer + desloc));
-        printf("Email: %s\n", (char *)(pBuffer + desloc + NAME_SIZE));
-        printf("Idade: %d\n", *(int *)((char *)pBuffer + desloc + NAME_SIZE + EMAIL_SIZE));
+        printf("NOME : %s\n", (char *)(pBuffer + desloc));
+        printf("EMAIL: %s\n", (char *)(pBuffer + desloc + NAME_SIZE));
+        printf("IDADE: %d\n", *(int *)((char *)pBuffer + desloc + NAME_SIZE + EMAIL_SIZE));
     }
 }

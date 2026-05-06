@@ -70,7 +70,7 @@ int main()
       list_Agenda(pBuffer);
       break;
     case 4:
-      /* search_Agenda(pBuffer); */
+      search_Agenda(pBuffer);
       break;
     }
 
@@ -102,7 +102,7 @@ void list_Agenda(void *pBuffer)
        *(int *)(pBuffer + POSITION_CONTADOR_LOOP) < *(int *)(pBuffer + POSITION_QTD_PESSOAS);
        (*(int *)(pBuffer + POSITION_CONTADOR_LOOP))++)
   {
-    // indicie para visualizaõ dos contatos
+    // indicie para visualização dos contatos
     printf("\nContato %d:\n", *(int *)(pBuffer + POSITION_CONTADOR_LOOP) + 1); 
 
     printf(" NOME: %s | EMAIL: %s | IDADE: %d\n",
@@ -123,7 +123,8 @@ void remove_Agenda(void *pBuffer){
     *(int *)(pBuffer + POSITION_OPCAO_MENU) = 0; 
     
 
-    // Conferência para ver se tem nomes de contatos iguais, e quantos 
+    // Conferência para ver se tem nomes de contatos iguais, e quantos. Se não tiver mostra mesmo assim para caso as pessoa não queria excluir mesmo assim
+
     for(*(int*)(pBuffer + POSITION_CONTADOR_LOOP) = 0 ;
         *(int*)(pBuffer + POSITION_CONTADOR_LOOP) < *(int*)(pBuffer + POSITION_QTD_PESSOAS);
         (*(int*)(pBuffer + POSITION_CONTADOR_LOOP))++){ 
@@ -156,21 +157,25 @@ void remove_Agenda(void *pBuffer){
         return;
     }
 
-    // reset do contador de encontrados
+    
     *(int *)(pBuffer + POSITION_OPCAO_MENU) = 0; 
     
-    
+    // Conferência para ver se a opção escolhida, depois da conferência de possiveis contatos iguais, e realmente tirar o contato selecionado da lista, usando o memmove para gravar os dados posteriores por cima dos dados que serão removidos
+
     for(*(int*)(pBuffer + POSITION_CONTADOR_LOOP) = 0 ; 
         *(int*)(pBuffer + POSITION_CONTADOR_LOOP) < *(int*)(pBuffer + POSITION_QTD_PESSOAS);
         (*(int*)(pBuffer + POSITION_CONTADOR_LOOP))++){ 
         
+        // Confere se os nomes são iguais
+
         if (strcmp((char*)(pBuffer + POSITION_BUSCA), 
-                   (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE))) == 0){
+                   (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE))) == 0){  
           
             (*(int *)(pBuffer + POSITION_OPCAO_MENU))++;
 
-            if (*(int *)(pBuffer + POSITION_OPCAO_MENU) == escolha) { 
-                
+          // Confere a endereço que vai ser feita a operação, e logo depois realizada 
+            
+            if (*(int *)(pBuffer + POSITION_OPCAO_MENU) == escolha) {  
                 
                 int indiceAtual = *(int *)(pBuffer + POSITION_CONTADOR_LOOP);
                 int totalPessoas = *(int *)(pBuffer + POSITION_QTD_PESSOAS);
@@ -189,4 +194,35 @@ void remove_Agenda(void *pBuffer){
             }
         }
     }
+}
+
+void search_Agenda(void *pBuffer){
+  
+    // limpeza de buffer
+    *(char*)(pBuffer + POSITION_BUSCA) = '\0'; 
+
+    printf("Digite o nome que deseja buscar: \n");
+    printf("\n");
+    scanf("%s", (char*)(pBuffer + POSITION_BUSCA));
+    printf("____________________________________\n");
+
+    for(*(int*)(pBuffer + POSITION_CONTADOR_LOOP) = 0 ;
+        *(int*)(pBuffer + POSITION_CONTADOR_LOOP) < *(int*)(pBuffer + POSITION_QTD_PESSOAS);
+        (*(int*)(pBuffer + POSITION_CONTADOR_LOOP))++){ 
+      
+        if (strcmp((char*)(pBuffer + POSITION_BUSCA), 
+            (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE))) == 0){
+      
+            printf("Seu contato :\n");
+            printf("\n");
+            printf("NOME: %s | EMAIL: %s | IDADE: %d\n", 
+                (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE)),
+                (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE) + NAME_SIZE),
+                *(int *)((char *)pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE) + NAME_SIZE + EMAIL_SIZE));
+             printf("____________________________________\n");
+        }
+    }
+
+
+
 }

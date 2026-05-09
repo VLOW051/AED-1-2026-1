@@ -42,6 +42,7 @@ int main()
     return 1;
 
   // Inicialização da variável para não ter lixo e não errar a contagem !!
+  
   *(int *)(pBuffer + POSITION_QTD_PESSOAS) = 0;
 
   do
@@ -61,8 +62,6 @@ int main()
     printf("----------------------------------\n");
     printf("\n");
     
-    
-
     // COLOCAR UM COISA PRA OBRIGA ELE PREENCHER COM INT, CASO PREENCHA COM OUTRA COISA NÃO DEIXE AVANÇAR
 
     switch (*(int *)(pBuffer + POSITION_OPCAO_MENU))
@@ -80,7 +79,7 @@ int main()
        printf("BUSCANDO ...\n");
        printf("----------------------------------\n");
        printf("Digite o nome para a busca: ");
-       scanf("%s", (char *)(pBuffer + POSITION_BUSCA));
+       scanf(" %49[^\n]", (char *)(pBuffer + POSITION_BUSCA));
        search_Agenda(pBuffer);
       break;
     }
@@ -93,13 +92,16 @@ int main()
 
 void insert_Agenda(void *pBuffer)
 {
+
+  // o scanf com o espaço está dando problema 
+
   printf("ADICIONANDO ... \n");
   printf("----------------------------------\n");
   printf("NOME: ");
-  scanf("%s", (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE)));
+  scanf(" %49[^\n]", (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE)));
   printf("----------------------------------\n");
   printf("EMAIL: ");
-  scanf("%s", (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE) + NAME_SIZE));
+  scanf(" %49[^\n]", (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE) + NAME_SIZE));
   printf("----------------------------------\n");
   printf("IDADE: ");
   scanf("%d", (int *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE) + NAME_SIZE + EMAIL_SIZE));printf("----------------------------------\n");
@@ -167,6 +169,7 @@ void search_Agenda(void *pBuffer) {
             (*(int *)(pBuffer + POSITION_OPCAO_MENU))++;
 
             // lista de contato(s) encontrado(s)
+
             printf("[%d] NOME: %s | EMAIL: %s | IDADE: %d\n",
                    *(int *)(pBuffer + POSITION_OPCAO_MENU), 
                    (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) * STRUCT_SIZE)),
@@ -187,7 +190,7 @@ void remove_Agenda(void *pBuffer) {
     printf("\nDigite o nome que deseja remover: ");
     printf("-------------------------------------\n"); 
 
-    scanf("%s", (char *)(pBuffer + POSITION_BUSCA));
+    scanf(" %49[^\n]", (char *)(pBuffer + POSITION_BUSCA));
 
     printf("\n------ Resultados encontrados ------\n");
     printf("--------------------------------------\n");

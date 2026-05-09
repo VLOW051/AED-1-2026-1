@@ -36,8 +36,12 @@ void remove_Agenda(void *pBuffer);
 
 int main()
 {
+  // alocação do pbuffer
 
   void *pBuffer = malloc(TAM_INICIAL);
+
+  // verificação de alocação
+
   if (pBuffer == NULL)
     return 1;
 
@@ -59,6 +63,7 @@ int main()
     printf("----------------------------------\n");
     printf(" Escolha de [1-5] :  ");
     scanf(" %d", (int *)(pBuffer + POSITION_OPCAO_MENU));
+    getchar();
     printf("----------------------------------\n");
     printf("\n");
     
@@ -104,7 +109,9 @@ void insert_Agenda(void *pBuffer)
   scanf(" %49[^\n]", (char *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE) + NAME_SIZE));
   printf("----------------------------------\n");
   printf("IDADE: ");
-  scanf("%d", (int *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE) + NAME_SIZE + EMAIL_SIZE));printf("----------------------------------\n");
+  scanf("%d", (int *)(pBuffer + INICIO_REGISTROS + (*(int *)(pBuffer + POSITION_QTD_PESSOAS) * STRUCT_SIZE) + NAME_SIZE + EMAIL_SIZE));
+  getchar();
+  printf("----------------------------------\n");
   printf("\n");
 
   (*(int *)(pBuffer + POSITION_QTD_PESSOAS))++;
@@ -191,6 +198,7 @@ void remove_Agenda(void *pBuffer) {
     printf("-------------------------------------\n"); 
 
     scanf(" %49[^\n]", (char *)(pBuffer + POSITION_BUSCA));
+    getchar();
 
     printf("\n------ Resultados encontrados ------\n");
     printf("--------------------------------------\n");

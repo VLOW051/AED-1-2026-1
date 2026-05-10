@@ -67,8 +67,7 @@ int main()
     printf("----------------------------------\n");
     printf("\n");
     
-    // COLOCAR UM COISA PRA OBRIGA ELE PREENCHER COM INT, CASO PREENCHA COM OUTRA COISA NÃO DEIXE AVANÇAR
-
+    
     switch (*(int *)(pBuffer + POSITION_OPCAO_MENU))
     {
     case 1:
@@ -97,8 +96,6 @@ int main()
 
 void insert_Agenda(void *pBuffer)
 {
-
-  // o scanf com o espaço está dando problema 
 
   printf("ADICIONANDO ... \n");
   printf("----------------------------------\n");
@@ -150,6 +147,7 @@ void list_Agenda(void *pBuffer)
 }
 
 void search_Agenda(void *pBuffer) {
+
 
       // verifica se tem contato na agenda antes de procurar
 
@@ -223,7 +221,7 @@ void remove_Agenda(void *pBuffer) {
 
         *(int *)(pBuffer + POSITION_OPCAO_MENU) = 0;
 
-        // Conferência para ver se a opção escolhida, depois da conferência de possiveis contatos iguais, e realmente tirar o contato selecionado da lista buscada, usando o memmove para gravar os dados posteriores por cima dos dados que serão removidos, atualizando os indicies da lista de contato
+        // Conferência para ver se a opção escolhida, depois da conferência de possiveis contatos iguais, e realmente tirar o contato selecionado da lista buscada, usando o memmove para gravar os dados posteriores por cima dos dados que serão removidos, atualizando os indices da lista de contato
 
         for (*(int *)(pBuffer + POSITION_CONTADOR_LOOP) = 0;
              *(int *)(pBuffer + POSITION_CONTADOR_LOOP) < *(int *)(pBuffer + POSITION_QTD_PESSOAS);
